@@ -1,0 +1,308 @@
+API Test Logs
+==================================================
+
+--- Interaction Log: 2025-07-26 02:42:18.959269 ---
+Endpoint: /list-voices
+Request Data:
+{}
+Response Status Code: 200
+Response Body:
+{
+  "voices": [
+    {
+      "name": "Aria",
+      "voice_id": "9BWtsMINqrJLrRacOk9x",
+      "labels": {
+        "accent": "american",
+        "descriptive": "husky",
+        "age": "middle_aged",
+        "gender": "female",
+        "language": "en",
+        "use_case": "informative_educational"
+      }
+    },
+    {
+      "name": "Sarah",
+      "voice_id": "EXAVITQu4vr4xnSDxMaL",
+      "labels": {
+        "accent": "american",
+        "descriptive": "professional",
+        "age": "young",
+        "gender": "female",
+        "language": "en",
+        "use_case": "entertainment_tv"
+      }
+    },
+    {
+      "name": "Laura",
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "labels": {
+        "accent": "american",
+        "descriptive": "sassy",
+        "age": "young",
+        "gender": "female",
+        "language": "en",
+        "use_case": "social_media"
+      }
+    },
+    {
+      "name": "Charlie",
+      "voice_id": "IKne3meq5aSn9XLyUdCD",
+      "labels": {
+        "accent": "australian",
+        "descriptive": "hyped",
+        "age": "young",
+        "gender": "male",
+        "language": "en",
+        "use_case": "conversational"
+      }
+    },
+    {
+      "name": "George",
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "labels": {
+        "accent": "british",
+        "descriptive": "mature",
+        "age": "middle_aged",
+        "gender": "male",
+        "language": "en",
+        "use_case": "narrative_story"
+      }
+    },
+    {
+      "name": "Callum",
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "labels": {
+        "accent": "",
+        "age": "middle_aged",
+        "language": "en",
+        "gender": "male",
+        "use_case": "characters"
+      }
+    },
+    {
+      "name": "River",
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "labels": {
+        "accent": "american",
+        "descriptive": "calm",
+        "age": "middle_aged",
+        "gender": "neutral",
+        "language": "en",
+        "use_case": "conversational"
+      }
+    },
+    {
+      "name": "Liam",
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "labels": {
+        "accent": "american",
+        "descriptive": "confident",
+        "age": "young",
+        "gender": "male",
+        "language": "en",
+        "use_case": "social_media"
+      }
+    },
+    {
+      "name": "Charlotte",
+      "voice_id": "XB0fDUnXU5powFXDhCwa",
+      "labels": {
+        "accent": "swedish",
+        "descriptive": "relaxed",
+        "age": "young",
+        "gender": "female",
+        "language": "en",
+        "use_case": "characters_animation"
+      }
+    },
+    {
+      "name": "Alice",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "labels": {
+        "accent": "british",
+        "descriptive": "professional",
+        "age": "middle_aged",
+        "gender": "female",
+        "language": "en",
+        "use_case": "advertisement"
+      }
+    },
+    {
+      "name": "Matilda",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "labels": {
+        "accent": "american",
+        "descriptive": "upbeat",
+        "age": "middle_aged",
+        "gender": "female",
+        "language": "en",
+        "use_case": "informative_educational"
+      }
+    },
+    {
+      "name": "Will",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "labels": {
+        "accent": "american",
+        "descriptive": "chill",
+        "age": "young",
+        "gender": "male",
+        "language": "en",
+        "use_case": "conversational"
+      }
+    },
+    {
+      "name": "Jessica",
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "labels": {
+        "accent": "american",
+        "descriptive": "cute",
+        "age": "young",
+        "gender": "female",
+        "language": "en",
+        "use_case": "conversational"
+      }
+    },
+    {
+      "name": "Eric",
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "labels": {
+        "accent": "american",
+        "descriptive": "classy",
+        "age": "middle_aged",
+        "gender": "male",
+        "language": "en",
+        "use_case": "conversational"
+      }
+    },
+    {
+      "name": "Chris",
+      "voice_id": "iP95p4xoKVk53GoZ742B",
+      "labels": {
+        "accent": "american",
+        "descriptive": "casual",
+        "age": "middle_aged",
+        "gender": "male",
+        "language": "en",
+        "use_case": "conversational"
+      }
+    },
+    {
+      "name": "Brian",
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "labels": {
+        "accent": "american",
+        "descriptive": "classy",
+        "age": "middle_aged",
+        "gender": "male",
+        "language": "en",
+        "use_case": "social_media"
+      }
+    },
+    {
+      "name": "Daniel",
+      "voice_id": "onwK4e9ZLuTAKqWW03F9",
+      "labels": {
+        "accent": "british",
+        "descriptive": "formal",
+        "age": "middle_aged",
+        "gender": "male",
+        "language": "en",
+        "use_case": "informative_educational"
+      }
+    },
+    {
+      "name": "Lily",
+      "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+      "labels": {
+        "accent": "british",
+        "description": "warm",
+        "descriptive": "confident",
+        "gender": "female",
+        "age": "middle_aged",
+        "use_case": "narration"
+      }
+    },
+    {
+      "name": "Bill",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "labels": {
+        "accent": "american",
+        "descriptive": "crisp",
+        "age": "old",
+        "gender": "male",
+        "language": "en",
+        "use_case": "advertisement"
+      }
+    }
+  ]
+}
+--------------------------------------------------
+
+--- Interaction Log: 2025-07-26 02:42:20.232515 ---
+Endpoint: /generate-audio
+Request Data:
+{
+  "text": "Hello, this is a test from the test script.",
+  "output_path": "test_script_basic.mp3"
+}
+Response Status Code: 200
+Response Body:
+{
+  "message": "Audio generated successfully",
+  "path": "test_script_basic.mp3"
+}
+--------------------------------------------------
+
+--- Interaction Log: 2025-07-26 02:42:21.321252 ---
+Endpoint: /generate-modulated-audio
+Request Data:
+{
+  "text": "This is a test of modulated audio.",
+  "output_path": "test_script_modulated.mp3",
+  "stability": 0.6,
+  "similarity_boost": 0.6
+}
+Response Status Code: 200
+Response Body:
+{
+  "message": "Modulated audio generated successfully",
+  "path": "test_script_modulated.mp3"
+}
+--------------------------------------------------
+
+--- Interaction Log: 2025-07-26 02:42:23.097632 ---
+Endpoint: /generate-in-language
+Request Data:
+{
+  "text": "Bonjour, ceci est un test en fran\u00e7ais.",
+  "language_labels": {
+    "accent": "french"
+  },
+  "output_path": "test_script_french.mp3"
+}
+Response Status Code: 200
+Response Body:
+{
+  "message": "Audio in language '{'accent': 'french'}' generated successfully",
+  "path": "test_script_french.mp3"
+}
+--------------------------------------------------
+
+--- Interaction Log: 2025-07-26 02:42:24.628038 ---
+Endpoint: /generate-with-ambience
+Request Data:
+{
+  "text": "Testing ambience from the test script.",
+  "ambience_file": "news_studio.mp3",
+  "output_path": "test_script_ambience.mp3"
+}
+Response Status Code: 200
+Response Body:
+{
+  "message": "Audio with ambience generated successfully",
+  "path": "test_script_ambience.mp3"
+}
+--------------------------------------------------
+

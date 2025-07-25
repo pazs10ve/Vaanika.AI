@@ -1,4 +1,4 @@
-from .text_to_audio import TextToAudioGenerator
+from voice_agent.text_to_audio import TextToAudioGenerator
 
 class VoiceModulator(TextToAudioGenerator):
     def generate_with_modulation(self, text, voice_id="JBFqnCBsd6RMkjVDRZzb", model_id="eleven_multilingual_v2", output_path="output_modulated.mp3", stability=0.5, similarity_boost=0.75):
@@ -8,14 +8,24 @@ class VoiceModulator(TextToAudioGenerator):
         - similarity_boost: Higher values make the voice more similar to the original, but can introduce artifacts.
         """
         try:
-            self.client.voices.edit_settings(
-                voice_id=voice_id,
-                stability=stability,
-                similarity_boost=similarity_boost
-            )
-            
             print(f"Generating audio with stability={stability} and similarity_boost={similarity_boost}")
-            return self.generate_audio(text, voice_id, model_id, output_path)
+            
+            audio_stream = self.client.text_to_speech.convert(
+                text=text,
+                voice_id=voice_id,
+                model_id=model_id,
+                voice_settings={
+                    "stability": stability,
+                    "similarity_boost": similarity_boost
+                }
+            )
+
+            with open(output_path, "wb") as f:
+                for chunk in audio_stream:
+                    f.write(chunk)
+            
+            print(f"Audio generated and saved to {output_path}")
+            return output_path
         except Exception as e:
             print(f"An error occurred during modulation: {e}")
             return None
