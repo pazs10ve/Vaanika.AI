@@ -1,0 +1,45 @@
+--- Running Example Workflows ---
+
+--- Generating Graphic for: Create a quarterly sales performance infographic showing 25% growth. ---
+Input Processed.
+RunwayML Prompt Generated: Create a quarterly sales performance infographic showing 25% growth. style: corporate, color scheme: brand_primary, tone: professional, complexity: simple. Create a data-driven infographic. Visualize the following data: {'title': 'Quarterly Sales Performance', 'metrics': [{'quarter': 'Q1', 'sales': 100, 'growth': '5%'}, {'quarter': 'Q2', 'sales': 105, 'growth': '5%'}, {'quarter': 'Q3', 'sales': 131.25, 'growth': '25%'}, {'quarter': 'Q4', 'sales': 137.81, 'growth': '5%'}]} Ensure clear visual hierarchy and statistical representation. Dimensions: 1024x1024, format: PNG, resolution: standard, aspect ratio: 1:1. Ensure high quality, professional design.
+
+Calling RunwayML API: https://api.runwayml.com/v1/image/generate
+Payload: {
+  "prompt": "Create a quarterly sales performance infographic showing 25% growth. style: corporate, color scheme: brand_primary, tone: professional, complexity: simple. Create a data-driven infographic. Visualize the following data: {'title': 'Quarterly Sales Performance', 'metrics': [{'quarter': 'Q1', 'sales': 100, 'growth': '5%'}, {'quarter': 'Q2', 'sales': 105, 'growth': '5%'}, {'quarter': 'Q3', 'sales': 131.25, 'growth': '25%'}, {'quarter': 'Q4', 'sales': 137.81, 'growth': '5%'}]} Ensure clear visual hierarchy and statistical representation. Dimensions: 1024x1024, format: PNG, resolution: standard, aspect ratio: 1:1. Ensure high quality, professional design.",
+  "model": "stable-diffusion-v1-5"
+}
+HTTP error occurred: 400 Client Error: Bad Request for url: https://api.runwayml.com/v1/image/generate
+Response content: {'error': 'Invalid API Version'}
+API Communication Complete.
+Generated Graphic URL: Error: 400 Client Error: Bad Request for url: https://api.runwayml.com/v1/image/generate
+
+--- Generating Graphic for: Generate a 4-panel storyboard showing customer onboarding process. ---
+Input Processed.
+RunwayML Prompt Generated: Generate a 4-panel storyboard showing customer onboarding process. style: modern, color scheme: brand_primary, tone: friendly, complexity: simple. Create a sequential visual narrative storyboard. Consider multi-panel layouts and character-based scenes if applicable. Dimensions: 1024x1024, format: PNG, resolution: standard, aspect ratio: 1:1. Ensure high quality, professional design.
+
+Calling RunwayML API: https://api.runwayml.com/v1/video/generate
+Payload: {
+  "prompt": "Generate a 4-panel storyboard showing customer onboarding process. style: modern, color scheme: brand_primary, tone: friendly, complexity: simple. Create a sequential visual narrative storyboard. Consider multi-panel layouts and character-based scenes if applicable. Dimensions: 1024x1024, format: PNG, resolution: standard, aspect ratio: 1:1. Ensure high quality, professional design.",
+  "model": "gen-1"
+}
+HTTP error occurred: 400 Client Error: Bad Request for url: https://api.runwayml.com/v1/video/generate
+Response content: {'error': 'Invalid API Version'}
+API Communication Complete.
+Generated Graphic URL: Error: 400 Client Error: Bad Request for url: https://api.runwayml.com/v1/video/generate
+
+--- Generating Graphic for: Convert this data into a vibrant pie chart showing market share distribution. ---
+Input Processed.
+RunwayML Prompt Generated: Convert this data into a vibrant pie chart showing market share distribution. style: modern, color scheme: vibrant, tone: professional, complexity: simple. Generate a pie chart with data labels and legend at bottom. Display the following data: {'labels': ['Product A', 'Product B', 'Product C', 'Product D'], 'values': [40, 30, 20, 10]} Use clean typography. Dimensions: 1024x1024, format: PNG, resolution: standard, aspect ratio: 1:1. Ensure high quality, professional design.
+
+Calling RunwayML API: https://api.runwayml.com/v1/image/generate
+Payload: {
+  "prompt": "Convert this data into a vibrant pie chart showing market share distribution. style: modern, color scheme: vibrant, tone: professional, complexity: simple. Generate a pie chart with data labels and legend at bottom. Display the following data: {'labels': ['Product A', 'Product B', 'Product C', 'Product D'], 'values': [40, 30, 20, 10]} Use clean typography. Dimensions: 1024x1024, format: PNG, resolution: standard, aspect ratio: 1:1. Ensure high quality, professional design.",
+  "model": "stable-diffusion-v1-5"
+}
+HTTP error occurred: 400 Client Error: Bad Request for url: https://api.runwayml.com/v1/image/generate
+Response content: {'error': 'Invalid API Version'}
+API Communication Complete.
+Generated Graphic URL: Error: 400 Client Error: Bad Request for url: https://api.runwayml.com/v1/image/generate
+
+--- All Example Workflows Completed ---

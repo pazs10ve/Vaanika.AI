@@ -1,0 +1,13 @@
+--- Starting Video Generation Test Run ---
+--- Test Case: Simple Video Generation ---
+Request Payload: {"prompt_text": "a cat driving a car"}
+Error during test: 500 Server Error: Internal Server Error for url: http://127.0.0.1:8000/video/generate
+--- Test Case: Video with Seed ---
+Request Payload: {"prompt_text": "a dog riding a skateboard", "seed": 12345}
+Error during test: 500 Server Error: Internal Server Error for url: http://127.0.0.1:8000/video/generate
+--- Test Case: Video with Duration and Watermark ---
+Request Payload: {"prompt_text": "a bird flying in the sky", "duration": 10, "watermark": true}
+Error during test: 500 Server Error: Internal Server Error for url: http://127.0.0.1:8000/video/generate
+--- Test Case: Video with Custom Ratio ---
+Request Payload: {"prompt_text": "a robot dancing", "ratio": "1:1"}
+Error during test: 500 Server Error: Internal Server Error for url: http://127.0.0.1:8000/video/generate

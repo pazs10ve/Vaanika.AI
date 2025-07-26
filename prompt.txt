@@ -1,0 +1,159 @@
+# Text-to-Graphics Generation Feature Documentation
+*Using RunwayML API for AI-Powered Visual Content Creation*
+
+## Feature Overview
+
+You are tasked with implementing a **Text-to-Graphics Generation System** that converts textual descriptions into visual content including infographics, charts, illustrations, and storyboards using the RunwayML API. The system must support parameter-based customization to ensure consistent, branded, and contextually appropriate visual outputs.
+
+## Core Requirements
+
+### Input Processing
+- **Text Description**: Natural language description of the desired visual content
+- **Content Type**: Specify whether generating infographics, charts, illustrations, or storyboards
+- **Data Integration**: Accept structured data (JSON/CSV) for chart and infographic generation
+- **Style Parameters**: Customizable visual parameters for consistent branding
+
+### Supported Content Types
+
+1. **Infographics**
+   - Data-driven visual summaries
+   - Statistical representations
+   - Process flows and timelines
+   - Comparison charts
+
+2. **Visual Charts**
+   - Bar charts, pie charts, line graphs
+   - Heat maps and scatter plots  
+   - Organizational charts
+   - Flowcharts and diagrams
+
+3. **Illustrations**
+   - Concept visualizations
+   - Product mockups
+   - Scene illustrations
+   - Icon sets and graphics
+
+4. **Storyboards**
+   - Sequential visual narratives
+   - Multi-panel layouts
+   - Character-based scenes
+   - Process documentation
+
+## Parameter Configuration
+
+### Visual Style Parameters
+```json
+{
+  "style": "modern|vintage|corporate|artistic|minimal|bold",
+  "color_scheme": "brand_primary|monochrome|vibrant|pastel|high_contrast",
+  "tone": "professional|casual|playful|serious|friendly",
+  "complexity": "simple|detailed|complex"
+}
+```
+
+### Technical Parameters  
+```json
+{
+  "dimensions": "1024x1024|1920x1080|square|portrait|landscape",
+  "format": "PNG|JPEG|SVG|PDF",
+  "resolution": "standard|high|print_quality",
+  "aspect_ratio": "16:9|4:3|1:1|9:16"
+}
+```
+
+### Data Parameters (for charts/infographics)
+```json
+{
+  "data_source": "inline_json|csv_upload|api_endpoint",
+  "chart_type": "bar|pie|line|scatter|heat_map|flow",
+  "data_labels": true|false,
+  "legend_position": "top|bottom|left|right|none"
+}
+```
+
+## RunwayML API Integration Requirements
+
+### API Endpoints to Utilize
+- **Image Generation**: `/v1/image/generate` for static graphics
+- **Video Generation**: `/v1/video/generate` for animated storyboards
+- **Prompt Enhancement**: Use RunwayML's prompt optimization features
+
+### Prompt Engineering Strategy
+1. **Structured Prompts**: Convert user input into optimized RunwayML prompts
+2. **Style Injection**: Automatically append style parameters to prompts
+3. **Data Visualization Prompts**: Translate data into visual description language
+4. **Quality Enhancement**: Add technical quality descriptors
+
+### Example Prompt Templates
+
+**Infographic Generation:**
+```
+Create a [style] infographic showing [data_description] with [color_scheme] colors. 
+Layout should be [complexity] with clear visual hierarchy. 
+Include [specific_elements] and maintain [tone] aesthetic. 
+Technical specs: [dimensions], high quality, professional design.
+```
+
+**Chart Generation:**
+```
+Generate a [chart_type] chart displaying [data_summary] in [style] style. 
+Use [color_scheme] color palette with [data_labels] labels. 
+Chart should be [complexity] and follow [tone] design principles.
+Include legend [legend_position], clean typography, [dimensions] output.
+```
+
+## Implementation Workflow
+
+### 1. Input Processing
+- Parse user text description
+- Extract content type and requirements
+- Validate and structure input data
+- Apply default parameters where not specified
+
+### 2. Prompt Generation
+- Convert text to RunwayML-optimized prompts
+- Inject style and technical parameters
+- Enhance prompts for better AI understanding
+- Include quality and format specifications
+
+### 3. API Communication
+- Send structured requests to RunwayML API
+- Handle rate limiting and error responses
+- Process generated content
+- Apply post-processing if needed
+
+### 4. Output Delivery
+- Return generated graphics in specified format
+
+
+
+### Quality Metrics
+- Visual coherence with text description
+- Brand consistency across generations
+- Data accuracy in charts/infographics
+- Technical specification compliance
+
+## Usage Examples
+
+### Example 1: Business Infographic
+**Input**: "Create a quarterly sales performance infographic showing 25% growth with modern corporate styling"
+**Parameters**: `style: "corporate", color_scheme: "brand_primary", data_values: "Q1-Q4 sales data"`
+
+### Example 2: Process Storyboard  
+**Input**: "Generate a 4-panel storyboard showing customer onboarding process in friendly, approachable style"
+**Parameters**: `content_type: "storyboard", tone: "friendly", complexity: "simple"`
+
+### Example 3: Data Visualization
+**Input**: "Convert this CSV data into a vibrant pie chart showing market share distribution"
+**Parameters**: `chart_type: "pie", color_scheme: "vibrant", data_source: "csv_upload"`
+
+This feature should provide users with powerful AI-driven visual content generation while maintaining control over style, branding, and technical requirements through comprehensive parameter customization.
+
+
+
+we are going to implement this using runwayml api, api key is provided in the .env file.  https://docs.dev.runwayml.com/guides/using-the-api/
+here's the api link, access it and write the appropriate code accordingly. 
+create directory named, graphics_agent and in it write a modular code, with different files for implementing each core feature. Achieve all the features described in the description. At the end of each file, add some testing code to test the feature implemented. Create a main.py file inside the folder to test the example workflows, also write some examples tests in that file.
+In the app.py file in the root directory of the project, edit the file and expose the functionaitites of video agents directory using fastapi endpoints.
+
+

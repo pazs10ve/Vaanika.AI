@@ -1,0 +1,57 @@
+--- Runway ML Video Generation Test Log ---
+Timestamp: 2025-07-26T13:26:58.696514
+==================================================
+
+--- Test Case 1: Test 1: Simple Generation ---
+Request Payload:
+{
+  "script": "A photorealistic video of a cat playing with a ball of yarn in a sunlit living room."
+}
+
+Start Response Status: 500
+Start Response Body:
+{
+  "detail": "Failed to start video generation: 404 <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /v1/inference/tasks/text-to-video</pre>\n</body>\n</html>\n"
+}
+
+
+ERROR: An error occurred: Failed to start task.
+
+==================================================
+
+--- Test Case 2: Test 2: Generation with Seed ---
+Request Payload:
+{
+  "script": "An oil painting of a stormy sea coming to life.",
+  "seed": 42
+}
+
+Start Response Status: 500
+Start Response Body:
+{
+  "detail": "Failed to start video generation: 404 <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /v1/inference/tasks/text-to-video</pre>\n</body>\n</html>\n"
+}
+
+
+ERROR: An error occurred: Failed to start task.
+
+==================================================
+
+--- Test Case 3: Test 3: Generation with Custom Motion ---
+Request Payload:
+{
+  "script": "A slow-motion shot of a hummingbird hovering next to a flower.",
+  "motion": 3
+}
+
+Start Response Status: 500
+Start Response Body:
+{
+  "detail": "Failed to start video generation: 404 <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /v1/inference/tasks/text-to-video</pre>\n</body>\n</html>\n"
+}
+
+
+ERROR: An error occurred: Failed to start task.
+
+==================================================
+

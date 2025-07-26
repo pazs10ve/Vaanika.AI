@@ -1,92 +1,74 @@
-# Kalasetu Voice Agent
+# Kalasetu Voice & Video Agent
 
-This project is a powerful Text-to-Audio generation service built with Python, ElevenLabs API, and FastAPI. It provides a flexible and feature-rich voice agent capable of generating high-quality audio with various customizations.
+This project provides powerful Text-to-Audio and Text-to-Video generation services built with Python, FastAPI, and external APIs like ElevenLabs and Deep Brain AI.
 
 ## Features
 
-- **Text-to-Audio Generation:** Core functionality to convert text into speech using the ElevenLabs API.
-- **Context-Aware Voice Modulation:** Adjust the voice's stability and similarity to make it more expressive or stable, depending on the context.
-- **Multi-Language and Mixed-Language Support:** 
-    - Generate audio in various languages by selecting from a wide range of voices.
-    - Handle mixed-language text (e.g., Hinglish) seamlessly with the `eleven_multilingual_v2` model.
-- **Background Ambience:** Overlay generated speech with background audio tracks (e.g., a news studio, an open environment) to create more immersive experiences.
-- **RESTful API:** All features are exposed through a clean and well-documented FastAPI application.
+### Voice Agent
+- **Text-to-Audio Generation:** Convert text into speech using the ElevenLabs API.
+- **Context-Aware Voice Modulation:** Adjust voice stability and similarity.
+- **Multi-Language Support:** Generate audio in various languages and handle mixed-language text.
+- **Background Ambience:** Overlay speech with background audio.
+
+### Video Agent
+- **Text-to-Video Generation:** Convert a script into a video with an AI avatar.
+- **Customization:**
+    - **Avatar/Model:** Choose the AI model for narration.
+    - **Background:** Set a solid color or an image URL as the background.
+    - **Subtitles:** Automatically include subtitles.
+    - **Background Music:** Add background music from a URL.
 
 ## Project Structure
-
 ```
 kalasetu-submission/
-├── .env                # For storing API keys
+├── .env
 ├── app.py              # FastAPI application
-├── prompt.txt          # The original prompt for the project
-├── README.md           # This file
-├── requirements.txt    # Python dependencies
-└── voice_agent/
-    ├── __init__.py
-    ├── background_ambience.py
-    ├── language_support.py
-    ├── main.py             # Example workflows
-    ├── text_to_audio.py
-    └── voice_modulation.py
+├── prompt.txt
+├── README.md
+├── requirements.txt
+├── voice_agent/        # Voice generation modules
+└── video_agent/        # Video generation modules
 ```
 
 ## Setup and Installation
 
-1.  **Clone the repository (if you haven't already):**
-    ```bash
-    git clone <repository_url>
-    cd kalasetu-submission
+1.  **Clone the repository.**
+2.  **Create and activate a virtual environment.**
+3.  **Install dependencies:** `pip install -r requirements.txt`
+4.  **Set up API keys in a `.env` file:**
     ```
-
-2.  **Create and activate a virtual environment:**
-    ```bash
-    # For Windows
-    python -m venv .venv
-    .venv\Scripts\activate
-
-    # For macOS/Linux
-    python3 -m venv .venv
-    source .venv/bin/activate
+    ELEVEN_API_KEY=your_elevenlabs_api_key
+    DEEPBRAIN_API_KEY=your_deepbrain_api_key
     ```
-
-3.  **Install the required dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4.  **Set up your API key:**
-    - Rename the `.env.example` file to `.env` (or create a new `.env` file).
-    - Add your ElevenLabs API key to the `.env` file:
-      ```
-      ELEVEN_API_KEY=your_elevenlabs_api_key
-      ```
 
 ## How to Run
 
-You can interact with the project in two ways:
+### 1. Run Example Workflows
 
-### 1. Run the Example Workflows
-
-To see a demonstration of all the core features, run the `main.py` script from the root directory. This will generate several example audio files in the `voice_outputs` directory.
-
-```bash
-python voice_agent/main.py
-```
+- **Voice Agent:** `python -m voice_agent.main`
+- **Video Agent:** `python -m video_agent.main`
 
 ### 2. Run the FastAPI Server
-
-To use the RESTful API, start the Uvicorn server.
 
 ```bash
 uvicorn app:app --reload
 ```
-
-Once the server is running, you can access the interactive API documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+Access the interactive API documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 ## API Endpoints
 
-- `POST /generate-audio`: Generates a simple audio file. Also handles mixed-language text.
-- `POST /generate-modulated-audio`: Generates audio with custom stability and similarity settings.
-- `GET /list-voices`: Lists all available voices from the ElevenLabs API.
-- `POST /generate-in-language`: Generates audio in a specific language by finding a voice with matching labels.
-- `POST /generate-with-ambience`: Overlays the generated speech with a background audio file.
+### Voice Agent
+- `POST /audio/generate-simple`
+- `POST /audio/generate-modulated`
+- `GET /audio/list-voices`
+- `POST /audio/generate-in-language`
+- `POST /audio/generate-with-ambience`
+
+### Video Agent
+- `POST /video/generate-custom`: Creates a video with options for title, model, background, subtitles, and music.
+
+---
+
+### Video Agent - Known Issues
+
+**API Key Permissions:** The Deep Brain AI API key used for development has "Insufficient permissions" (Error Code 2004) for video creation. The implemented code is based on the official API documentation and is expected to work with a fully permissioned API key. To test the video generation functionality, please replace the key in the `.env` file with one that has the necessary rights.

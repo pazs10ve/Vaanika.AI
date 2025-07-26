@@ -1,5 +1,5 @@
-elevenlabs
-python-dotenv
-pydub
 fastapi
-uvicorn
+pydantic
+python-dotenv
+requests
+runwayml

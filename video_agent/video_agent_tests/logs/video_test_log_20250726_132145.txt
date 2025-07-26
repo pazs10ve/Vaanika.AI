@@ -1,0 +1,150 @@
+--- Video Generation API Test Log ---
+Timestamp: 2025-07-26T13:21:45.886543
+========================================
+
+--- Test Case 1: Test 1: Minimal Request ---
+Request Payload:
+{
+  "script": "This is a basic test with only the required fields.",
+  "title": "Minimal Test"
+}
+
+Response Status Code: 200
+Response Body:
+{
+  "message": "Video generation initiated.",
+  "data": {
+    "success": false,
+    "error": {
+      "code": "2004",
+      "msg": "\uad8c\ud55c\uc774 \ubd80\uc871\ud558\uc5ec \uc774\uc6a9\uc774 \ubd88\uac00\ud569\ub2c8\ub2e4. \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud558\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4. (code: 2004)"
+    },
+    "data": {}
+  }
+}
+
+========================================
+
+--- Test Case 2: Test 2: With Background Color ---
+Request Payload:
+{
+  "script": "This test includes a solid blue background color.",
+  "title": "Background Color Test",
+  "model_id": "am-female-01-v2-1",
+  "background_color": "#0000FF"
+}
+
+Response Status Code: 200
+Response Body:
+{
+  "message": "Video generation initiated.",
+  "data": {
+    "success": false,
+    "error": {
+      "code": "2004",
+      "msg": "\uad8c\ud55c\uc774 \ubd80\uc871\ud558\uc5ec \uc774\uc6a9\uc774 \ubd88\uac00\ud569\ub2c8\ub2e4. \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud558\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4. (code: 2004)"
+    },
+    "data": {}
+  }
+}
+
+========================================
+
+--- Test Case 3: Test 3: With Background Image ---
+Request Payload:
+{
+  "script": "This test uses a background image URL.",
+  "title": "Background Image Test",
+  "background_image_url": "https://picsum.photos/1920/1080"
+}
+
+Response Status Code: 200
+Response Body:
+{
+  "message": "Video generation initiated.",
+  "data": {
+    "success": false,
+    "error": {
+      "code": "2004",
+      "msg": "\uad8c\ud55c\uc774 \ubd80\uc871\ud558\uc5ec \uc774\uc6a9\uc774 \ubd88\uac00\ud569\ub2c8\ub2e4. \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud558\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4. (code: 2004)"
+    },
+    "data": {}
+  }
+}
+
+========================================
+
+--- Test Case 4: Test 4: With Background Music ---
+Request Payload:
+{
+  "script": "This test adds background music to the video.",
+  "title": "Music Test",
+  "music_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+}
+
+Response Status Code: 200
+Response Body:
+{
+  "message": "Video generation initiated.",
+  "data": {
+    "success": false,
+    "error": {
+      "code": "2004",
+      "msg": "\uad8c\ud55c\uc774 \ubd80\uc871\ud558\uc5ec \uc774\uc6a9\uc774 \ubd88\uac00\ud569\ub2c8\ub2e4. \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud558\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4. (code: 2004)"
+    },
+    "data": {}
+  }
+}
+
+========================================
+
+--- Test Case 5: Test 5: Full Customization ---
+Request Payload:
+{
+  "script": "A fully customized video with a different model, no subtitles, a background color, and music.",
+  "title": "Full Custom Test",
+  "model_id": "am-male-news-anchor-v2",
+  "subtitles": false,
+  "background_color": "#EAEAEA",
+  "music_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+}
+
+Response Status Code: 200
+Response Body:
+{
+  "message": "Video generation initiated.",
+  "data": {
+    "success": false,
+    "error": {
+      "code": "2004",
+      "msg": "\uad8c\ud55c\uc774 \ubd80\uc871\ud558\uc5ec \uc774\uc6a9\uc774 \ubd88\uac00\ud569\ub2c8\ub2e4. \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud558\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4. (code: 2004)"
+    },
+    "data": {}
+  }
+}
+
+========================================
+
+--- Test Case 6: Test 6: Empty Script (Edge Case) ---
+Request Payload:
+{
+  "script": "",
+  "title": "Empty Script Test"
+}
+
+Response Status Code: 200
+Response Body:
+{
+  "message": "Video generation initiated.",
+  "data": {
+    "success": false,
+    "error": {
+      "code": "2004",
+      "msg": "\uad8c\ud55c\uc774 \ubd80\uc871\ud558\uc5ec \uc774\uc6a9\uc774 \ubd88\uac00\ud569\ub2c8\ub2e4. \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud558\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4. (code: 2004)"
+    },
+    "data": {}
+  }
+}
+
+========================================
+
