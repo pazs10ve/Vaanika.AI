@@ -1,7 +1,11 @@
 fastapi
+uvicorn[standard]
 pydantic
+pydantic-settings
 python-dotenv
 requests
 runwayml
 elevenlabs
 pydub
+replicate
+
