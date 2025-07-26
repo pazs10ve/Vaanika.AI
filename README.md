@@ -1,8 +1,6 @@
 # Kalasetu Voice & Video Agent
 
-This project provides powerful Text-to-Audio and Text-to-Video generation services built with Python, FastAPI, and external APIs like ElevenLabs and Deep Brain AI.
-
-## Features
+"Vaanika.AI is a full-stack multimodal AI studio that empowers creators to create and narrate stories that inspire. 
 
 ### Voice Agent
 - **Text-to-Audio Generation:** Convert text into speech using the ElevenLabs API.
