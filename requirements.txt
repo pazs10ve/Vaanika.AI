@@ -9,3 +9,4 @@ elevenlabs
 pydub
 replicate
 gunicorn
+pyaudioop
