@@ -25,8 +25,8 @@ class Settings(BaseSettings):
     # --- API Keys ---
     # It's critical to load secrets from the environment.
     # Replace with your actual environment variable names.
-    ELEVENLABS_API_KEY: str
-    RUNWAYML_API_KEY: str
+    ELEVEN_API_KEY: str
+    RUNWAY_API_KEY: str
     
     class Config:
         # This tells Pydantic to look for a .env file.
