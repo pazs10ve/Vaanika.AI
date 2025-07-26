@@ -8,4 +8,4 @@ runwayml
 elevenlabs
 pydub
 replicate
-
+gunicorn
