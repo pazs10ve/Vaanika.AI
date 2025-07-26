@@ -1,6 +1,6 @@
-# Kalasetu Voice & Video Agent
+# Vaanika.AI
 
-"Vaanika.AI is a full-stack multimodal AI studio that empowers creators to create and narrate stories that inspire. 
+Vaanika.AI is a full-stack multimodal AI studio that empowers creators to create and narrate stories that inspire. 
 
 ### Voice Agent
 - **Text-to-Audio Generation:** Convert text into speech using the ElevenLabs API.
