@@ -1,6 +1,6 @@
-Endpoint Test Log - Started at 2025-07-26 16:24:49
+Endpoint Test Log - Started at 2025-07-27 00:48:05
 
---- Test Case: Successful Infographic Generation (2025-07-26 16:24:50) ---
+--- Test Case: Successful Infographic Generation (2025-07-27 00:48:08) ---
 Input:
 {
   "text_description": "Create a quarterly sales performance infographic showing 25% growth with modern corporate styling",
@@ -16,10 +16,10 @@ Input:
   }
 }
 Output:
-"Error: 400 Client Error: Bad Request for url: https://api.dev.runwayml.com/v1/text_to_image"
+"generated_images\\generated_image_20250727_004808_45fccec5.png"
 ----------------------------------------
 
---- Test Case: Successful Storyboard Generation (2025-07-26 16:24:51) ---
+--- Test Case: Successful Storyboard Generation (2025-07-27 00:48:12) ---
 Input:
 {
   "text_description": "Generate a 4-panel storyboard showing customer onboarding process in friendly, approachable style",
@@ -33,10 +33,10 @@ Input:
   }
 }
 Output:
-"Error: 400 Client Error: Bad Request for url: https://api.dev.runwayml.com/v1/image_to_video"
+"generated_images\\generated_image_20250727_004812_abfcb192.png"
 ----------------------------------------
 
---- Test Case: Invalid Content Type (2025-07-26 16:24:51) ---
+--- Test Case: Invalid Content Type (2025-07-27 00:48:12) ---
 Input:
 {
   "text_description": "Some text",
@@ -46,12 +46,12 @@ Output:
 null
 ----------------------------------------
 
---- Test Case: Simulated API Error (2025-07-26 16:24:52) ---
+--- Test Case: Simulated API Error (2025-07-27 00:48:15) ---
 Input:
 {
   "text_description": "Create an image with an error in the prompt to trigger API failure.",
   "content_type": "illustrations"
 }
 Output:
-"Error: 400 Client Error: Bad Request for url: https://api.dev.runwayml.com/v1/text_to_image"
+"generated_images\\generated_image_20250727_004815_242caad4.png"
 ----------------------------------------

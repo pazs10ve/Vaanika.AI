@@ -1,0 +1,16 @@
+{
+  "timestamp": "20250727_004556",
+  "prompt": "A modern office workspace, clean and professional, modern, clean, contemporary, professional color palette, professional, clean and simple, detailed illustration, high quality artwork, high quality, professional design, sharp details, wide composition",
+  "technical_parameters": {
+    "width": 1024,
+    "height": 576,
+    "format": "PNG",
+    "quality": "high",
+    "aspect_ratio": "16:9",
+    "guidance_scale": 7.5,
+    "num_inference_steps": 4
+  },
+  "model": "black-forest-labs/FLUX.1-schnell",
+  "file_size_bytes": 51854,
+  "content_type": "image/jpeg"
+}

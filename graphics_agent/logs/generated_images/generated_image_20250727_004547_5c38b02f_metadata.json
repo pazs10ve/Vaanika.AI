@@ -1,0 +1,16 @@
+{
+  "timestamp": "20250727_004547",
+  "prompt": "Create a quarterly sales performance infographic showing 25% growth., professional, corporate, business-like, professional, clean and simple, infographic design, data visualization, showing data about Quarterly Sales Performance, clear layout, visual hierarchy, statistical charts, high quality, professional design, sharp details, wide composition",
+  "technical_parameters": {
+    "width": 1024,
+    "height": 576,
+    "format": "PNG",
+    "quality": "high",
+    "aspect_ratio": "16:9",
+    "guidance_scale": 7.5,
+    "num_inference_steps": 4
+  },
+  "model": "black-forest-labs/FLUX.1-schnell",
+  "file_size_bytes": 54772,
+  "content_type": "image/jpeg"
+}

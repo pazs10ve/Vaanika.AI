@@ -2,7 +2,7 @@ import json
 
 def process_input(text_description: str, content_type: str = None, data: dict = None, style_params: dict = None, technical_params: dict = None, data_params: dict = None):
     """
-    Processes user input for graphics generation, applying defaults where necessary.
+    Processes user input for graphics generation using Hugging Face API, applying defaults where necessary.
     """
     
     # Default style parameters
@@ -13,12 +13,15 @@ def process_input(text_description: str, content_type: str = None, data: dict = 
         "complexity": "simple"
     }
     
-    # Default technical parameters
+    # Default technical parameters for Hugging Face FLUX model
     default_technical = {
-        "dimensions": "1024x1024",
+        "width": 1024,
+        "height": 1024,
         "format": "PNG",
-        "resolution": "standard",
-        "aspect_ratio": "1:1"
+        "quality": "high",
+        "aspect_ratio": "1:1",
+        "guidance_scale": 7.5,
+        "num_inference_steps": 4  # FLUX.1-schnell is optimized for 4 steps
     }
 
     # Default data parameters (for charts/infographics)
@@ -39,12 +42,28 @@ def process_input(text_description: str, content_type: str = None, data: dict = 
     if content_type and content_type not in supported_content_types:
         raise ValueError(f"Unsupported content type: {content_type}. Supported types are: {', '.join(supported_content_types)}")
 
-    # Basic validation for data integration (more complex validation would be needed for real CSV/API)
+    # Basic validation for data integration
     if data and not isinstance(data, dict):
         try:
             data = json.loads(data) # Try to parse if it's a JSON string
         except json.JSONDecodeError:
             raise ValueError("Data must be a dictionary or a valid JSON string.")
+
+    # Map aspect ratios to width/height for Hugging Face
+    aspect_ratio_map = {
+        "16:9": {"width": 1024, "height": 576},
+        "4:3": {"width": 1024, "height": 768},
+        "1:1": {"width": 1024, "height": 1024},
+        "9:16": {"width": 576, "height": 1024},
+        "square": {"width": 1024, "height": 1024},
+        "portrait": {"width": 576, "height": 1024},
+        "landscape": {"width": 1024, "height": 576}
+    }
+    
+    # Update dimensions based on aspect ratio
+    aspect_ratio = processed_technical.get("aspect_ratio", "1:1")
+    if aspect_ratio in aspect_ratio_map:
+        processed_technical.update(aspect_ratio_map[aspect_ratio])
 
     return {
         "text_description": text_description,
@@ -57,7 +76,7 @@ def process_input(text_description: str, content_type: str = None, data: dict = 
 
 # --- Testing Code ---
 if __name__ == "__main__":
-    print("--- Testing Input Processing ---")
+    print("--- Testing Input Processing (Hugging Face Version) ---")
 
     # Test Case 1: Basic input with defaults
     print("\nTest Case 1: Basic input with defaults")
@@ -66,6 +85,8 @@ if __name__ == "__main__":
     assert input1["text_description"] == "A simple illustration of a cat."
     assert input1["content_type"] is None
     assert input1["style_parameters"]["style"] == "modern"
+    assert input1["technical_parameters"]["width"] == 1024
+    assert input1["technical_parameters"]["height"] == 1024
 
     # Test Case 2: Specific content type and some custom style
     print("\nTest Case 2: Specific content type and some custom style")
@@ -80,21 +101,23 @@ if __name__ == "__main__":
     assert input2["style_parameters"]["color_scheme"] == "high_contrast"
     assert input2["technical_parameters"]["format"] == "PNG" # Default still applies
 
-    # Test Case 3: Input with data for a chart
-    print("\nTest Case 3: Input with data for a chart")
+    # Test Case 3: Input with data for a chart and 16:9 aspect ratio
+    print("\nTest Case 3: Input with data for a chart and 16:9 aspect ratio")
     chart_data = {"labels": ["Jan", "Feb", "Mar"], "values": [10, 20, 15]}
     input3 = process_input(
         "Generate a pie chart showing monthly expenses.",
         content_type="charts",
         data=chart_data,
         data_params={"chart_type": "pie", "data_labels": False},
-        technical_params={"dimensions": "800x600", "format": "JPEG"}
+        technical_params={"aspect_ratio": "16:9", "guidance_scale": 8.0}
     )
     print(json.dumps(input3, indent=2))
     assert input3["content_type"] == "charts"
     assert input3["data"] == chart_data
     assert input3["data_parameters"]["chart_type"] == "pie"
-    assert input3["technical_parameters"]["dimensions"] == "800x600"
+    assert input3["technical_parameters"]["width"] == 1024
+    assert input3["technical_parameters"]["height"] == 576  # 16:9 ratio
+    assert input3["technical_parameters"]["guidance_scale"] == 8.0
 
     # Test Case 4: Invalid content type
     print("\nTest Case 4: Invalid content type")
@@ -114,5 +137,15 @@ if __name__ == "__main__":
     )
     print(json.dumps(input5, indent=2))
     assert input5["data"] == {"categories": ["A", "B"], "counts": [5, 8]}
+
+    # Test Case 6: Portrait aspect ratio
+    print("\nTest Case 6: Portrait aspect ratio")
+    input6 = process_input(
+        "Create a mobile-friendly illustration.",
+        technical_params={"aspect_ratio": "9:16"}
+    )
+    print(json.dumps(input6, indent=2))
+    assert input6["technical_parameters"]["width"] == 576
+    assert input6["technical_parameters"]["height"] == 1024
 
     print("\nAll input processing tests passed!")

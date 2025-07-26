@@ -1,0 +1,16 @@
+{
+  "timestamp": "20250727_004552",
+  "prompt": "Create a mobile-friendly illustration about our new product launch., modern, clean, contemporary, vibrant colors, bright, energetic, professional, clean and simple, detailed illustration, high quality artwork, high quality, professional design, sharp details, vertical composition",
+  "technical_parameters": {
+    "width": 576,
+    "height": 1024,
+    "format": "PNG",
+    "quality": "high",
+    "aspect_ratio": "9:16",
+    "guidance_scale": 7.5,
+    "num_inference_steps": 4
+  },
+  "model": "black-forest-labs/FLUX.1-schnell",
+  "file_size_bytes": 54251,
+  "content_type": "image/jpeg"
+}

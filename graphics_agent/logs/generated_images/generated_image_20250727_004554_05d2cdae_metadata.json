@@ -1,0 +1,16 @@
+{
+  "timestamp": "20250727_004554",
+  "prompt": "Generate a 4-panel storyboard showing customer onboarding process., modern, clean, contemporary, professional color palette, approachable, friendly, clean and simple, storyboard layout, sequential panels, narrative flow, multiple scenes, visual storytelling, high quality, professional design, sharp details, wide composition",
+  "technical_parameters": {
+    "width": 1024,
+    "height": 576,
+    "format": "PNG",
+    "quality": "high",
+    "aspect_ratio": "16:9",
+    "guidance_scale": 7.5,
+    "num_inference_steps": 4
+  },
+  "model": "black-forest-labs/FLUX.1-schnell",
+  "file_size_bytes": 44031,
+  "content_type": "image/jpeg"
+}

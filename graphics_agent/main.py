@@ -1,80 +1,144 @@
-from .input_processing import process_input
-from .prompt_generation import generate_runway_prompt
-from .api_communication import call_runway_api
-from .output_delivery import deliver_output
+from graphics_agent.input_processing import process_input
+from graphics_agent.prompt_generation import generate_huggingface_prompt, generate_runway_prompt
+from graphics_agent.api_communication import call_huggingface_api, call_runway_api, check_huggingface_setup
+from graphics_agent.output_delivery import deliver_output, save_image_with_metadata
 import json
 
-def generate_graphic(text_description: str, content_type: str = None, data: dict = None, style_params: dict = None, technical_params: dict = None, data_params: dict = None):
+def generate_graphic(text_description: str, content_type: str = None, data: dict = None, 
+                    style_params: dict = None, technical_params: dict = None, data_params: dict = None,
+                    save_metadata: bool = True):
     """
-    End-to-end workflow for generating graphics using RunwayML.
+    End-to-end workflow for generating graphics using Hugging Face FLUX model.
+    Free alternative to RunwayML with rate limits.
     """
-    print(f"\n--- Generating Graphic for: {text_description} ---")
+    print(f"\n--- Generating Graphic with Hugging Face: {text_description} ---")
+    
     try:
+        # 0. Check Hugging Face setup
+        setup_check = check_huggingface_setup()
+        if setup_check["status"] == "error":
+            print(f"❌ Setup Error: {setup_check['message']}")
+            for instruction in setup_check.get("setup_instructions", []):
+                print(f"   {instruction}")
+            return None
+        else:
+            print(f"✅ {setup_check['message']}")
+
         # 1. Input Processing
         processed_input = process_input(text_description, content_type, data, style_params, technical_params, data_params)
-        print("Input Processed.")
+        print("✅ Input Processed.")
 
-        # Map aspect ratio to concrete dimensions for RunwayML's 'ratio' parameter
-        aspect_ratio_map = {
-            "16:9": "1920:1080",
-            "4:3": "1024:768",
-            "1:1": "1024:1024",
-            "9:16": "1080:1920",
-            "square": "1024:1024",
-            "portrait": "1080:1920",
-            "landscape": "1920:1080"
-        }
-        # Determine the ratio for RunwayML API based on the aspect_ratio parameter
-        # Default to "1024:1024" if aspect_ratio is not provided or not in map
-        runway_ratio = aspect_ratio_map.get(processed_input["technical_parameters"].get("aspect_ratio"), "1024:1024")
-
-        # 2. Prompt Generation
-        runway_prompt = generate_runway_prompt(processed_input)
-        print(f"RunwayML Prompt Generated: {runway_prompt}")
-
-        # Determine API endpoint based on content type
-        api_endpoint = "/v1/text_to_image"
-        api_payload = {
-            "promptText": runway_prompt,
-            "ratio": runway_ratio
-        }
-
-        if processed_input["content_type"] == "storyboards":
-            api_endpoint = "/v1/image_to_video"
-            api_payload["model"] = "gen4_turbo" # Recommended model for image_to_video
-            # For image_to_video, a promptImage is required.
-            # Using a publicly accessible placeholder image for testing purposes.
-            # In a real scenario, this would be the output_url from a prior image generation step.
-            api_payload["promptImage"] = "https://www.nasa.gov/sites/default/files/thumbnails/image/iss068e050000.jpg" # Example public image
-            api_payload["duration"] = 4 # seconds
-            # Remove promptText if image_to_video doesn't primarily use it, or adjust as per API
-            # RunwayML docs suggest both promptImage and promptText for image_to_video
-        else:
-            api_payload["model"] = "gen4_image" # Recommended model for text_to_image
+        # 2. Prompt Generation (optimized for FLUX model)
+        enhanced_prompt = generate_huggingface_prompt(processed_input)
+        print(f"✅ Enhanced Prompt: {enhanced_prompt}")
 
         # 3. API Communication
-        api_response = call_runway_api(api_endpoint, api_payload)
-        print("API Communication Complete.")
+        technical_params_for_api = processed_input["technical_parameters"]
+        api_response = call_huggingface_api(enhanced_prompt, technical_params_for_api)
+        print("✅ API Communication Complete.")
 
         # 4. Output Delivery
-        output_url = deliver_output(api_response)
-        print(f"Generated Graphic URL: {output_url}")
-        return output_url
+        if save_metadata:
+            output_path = save_image_with_metadata(api_response, enhanced_prompt, technical_params_for_api)
+        else:
+            output_path = deliver_output(api_response)
+        
+        if not output_path.startswith("Error:"):
+            print(f"🎉 Generated Graphic saved at: {output_path}")
+            return output_path
+        else:
+            print(f"❌ {output_path}")
+            return None
 
     except Exception as e:
-        print(f"An error occurred during graphic generation: {e}")
+        print(f"❌ An error occurred during graphic generation: {e}")
         return None
 
-# --- Example Workflows (from prompt.txt) ---
-if __name__ == "__main__":
-    print("--- Running Example Workflows ---")
+def batch_generate(prompts_list: list, delay_seconds: int = 5):
+    """
+    Generate multiple graphics with delay to respect rate limits.
+    """
+    print(f"\n--- Batch Generation: {len(prompts_list)} images with {delay_seconds}s delay ---")
+    
+    results = []
+    for i, prompt_config in enumerate(prompts_list, 1):
+        print(f"\n[{i}/{len(prompts_list)}] Processing: {prompt_config.get('text_description', 'Unknown')}")
+        
+        result = generate_graphic(**prompt_config)
+        results.append({
+            "config": prompt_config,
+            "result": result,
+            "success": result is not None and not str(result).startswith("Error:")
+        })
+        
+        # Delay between requests to respect rate limits
+        if i < len(prompts_list):
+            print(f"⏳ Waiting {delay_seconds} seconds before next generation...")
+            import time
+            time.sleep(delay_seconds)
+    
+    # Summary
+    successful = sum(1 for r in results if r["success"])
+    print(f"\n📊 Batch Summary: {successful}/{len(prompts_list)} successful generations")
+    
+    return results
 
+def list_supported_features():
+    """
+    Display supported features and limitations of the Hugging Face version.
+    """
+    print("\n=== HUGGING FACE VERSION FEATURES ===")
+    print("✅ Supported:")
+    print("   - Text-to-image generation (FLUX.1-schnell model)")
+    print("   - Multiple aspect ratios (1:1, 16:9, 9:16, 4:3)")
+    print("   - Custom style parameters")
+    print("   - Infographics, charts, illustrations, storyboards")
+    print("   - High-quality output (1024px resolution)")
+    print("   - Completely FREE with rate limits")
+    print("   - Metadata saving")
+    print("   - Batch generation with rate limit handling")
+    
+    print("\n⚠️  Limitations:")
+    print("   - Rate limited (free tier)")
+    print("   - No video generation (images only)")
+    print("   - Cold start delays (model loading)")
+    print("   - Max resolution: 1024x1024")
+    
+    print("\n🔧 Requirements:")
+    print("   - Hugging Face account (free)")
+    print("   - HF_TOKEN environment variable")
+    print("   - Internet connection")
+    
+    print("\n💡 Tips:")
+    print("   - Use descriptive, clear prompts")
+    print("   - Wait 5-10 seconds between generations")
+    print("   - FLUX.1-schnell is optimized for 4 inference steps")
+
+# --- Example Workflows (Hugging Face Version) ---
+if __name__ == "__main__":
+    print("--- FREE GRAPHICS GENERATION WITH HUGGING FACE ---")
+    list_supported_features()
+    
+    # Check setup first
+    setup_status = check_huggingface_setup()
+    if setup_status["status"] == "error":
+        print(f"\n❌ Please set up your Hugging Face token first!")
+        print("Quick setup guide:")
+        for instruction in setup_status.get("setup_instructions", []):
+            print(f"   {instruction}")
+        exit(1)
+    
+    print(f"\n✅ Setup Status: {setup_status['message']}")
+    
     # Example 1: Business Infographic
-    generate_graphic(
+    print("\n" + "="*60)
+    print("EXAMPLE 1: Business Infographic")
+    print("="*60)
+    result1 = generate_graphic(
         text_description="Create a quarterly sales performance infographic showing 25% growth.",
         content_type="infographics",
-        style_params={"style": "corporate", "color_scheme": "brand_primary"},
-        data_params={"data_source": "inline_json"}, # Assuming data is implicitly in description for this example
+        style_params={"style": "corporate", "color_scheme": "professional"},
+        data_params={"data_source": "inline_json"},
         data={
             "title": "Quarterly Sales Performance",
             "metrics": [
@@ -86,17 +150,14 @@ if __name__ == "__main__":
         },
         technical_params={"aspect_ratio": "16:9"}
     )
-
-    # Example 2: Process Storyboard
-    generate_graphic(
-        text_description="Generate a 4-panel storyboard showing customer onboarding process.",
-        content_type="storyboards",
-        style_params={"tone": "friendly", "complexity": "simple"},
-        technical_params={"aspect_ratio": "16:9"}
-    )
-
-    # Example 3: Data Visualization (Pie Chart)
-    generate_graphic(
+    
+    # Uncomment below for more examples (run one at a time to manage rate limits)
+    
+    # # Example 2: Data Visualization Chart
+    print("\n" + "="*60)
+    print("EXAMPLE 2: Data Visualization")
+    print("="*60)
+    result2 = generate_graphic(
         text_description="Convert this data into a vibrant pie chart showing market share distribution.",
         content_type="charts",
         style_params={"color_scheme": "vibrant"},
@@ -108,4 +169,58 @@ if __name__ == "__main__":
         technical_params={"aspect_ratio": "1:1"}
     )
 
-    print("\n--- All Example Workflows Completed ---")
+    # # Example 3: Mobile Illustration
+    print("\n" + "="*60)
+    print("EXAMPLE 3: Mobile Illustration")
+    print("="*60)
+    result3 = generate_graphic(
+        text_description="Create a mobile-friendly illustration about our new product launch.",
+        content_type="illustrations",
+        style_params={"style": "modern", "color_scheme": "vibrant"},
+        technical_params={"aspect_ratio": "9:16"}
+    )
+
+    # # Example 4: Storyboard
+    print("\n" + "="*60)
+    print("EXAMPLE 4: Storyboard Layout")
+    print("="*60)
+    result4 = generate_graphic(
+        text_description="Generate a 4-panel storyboard showing customer onboarding process.",
+        content_type="storyboards",
+        style_params={"tone": "friendly", "complexity": "simple"},
+        technical_params={"aspect_ratio": "16:9"}
+    )
+
+    # # Example 5: Batch Generation
+    print("\n" + "="*60)
+    print("EXAMPLE 5: Batch Generation")
+    print("="*60)
+    batch_prompts = [
+        {
+            "text_description": "A modern office workspace, clean and professional",
+            "content_type": "illustrations",
+            "style_params": {"style": "modern"},
+            "technical_params": {"aspect_ratio": "16:9"}
+        },
+        {
+            "text_description": "A colorful bar chart showing growth metrics",
+            "content_type": "charts",
+            "style_params": {"color_scheme": "vibrant"},
+            "technical_params": {"aspect_ratio": "1:1"}
+        }
+    ]
+    batch_results = batch_generate(batch_prompts, delay_seconds=10)
+    
+    print("\n" + "="*60)
+    print("🎉 GENERATION COMPLETE!")
+    print("="*60)
+    
+    if result1:
+        print(f"✅ Your generated graphic is saved at: {result1}")
+        print("📁 Check the 'generated_images' folder for all your creations!")
+    
+    print("\n💡 To generate more images:")
+    print("   1. Uncomment other examples in the code")
+    print("   2. Run them one at a time to respect rate limits")
+    print("   3. Wait 5-10 seconds between generations")
+    print("   4. Check your Hugging Face usage at: https://huggingface.co/settings/billing")
